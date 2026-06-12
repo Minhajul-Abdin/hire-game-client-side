@@ -1,72 +1,126 @@
 "use client";
-import { useState } from "react";
-import { Link, Button } from "@heroui/react";
 
-function Navbar() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+import Link from "next/link";
+import { useState } from "react";
+
+export default function Navbar() {
+  const [open, setOpen] = useState(false);
 
   return (
-    <nav className="sticky top-0 z-40 w-full border-b border-separator bg-background/70 backdrop-blur-lg">
-      <header className="flex h-16 items-center justify-between px-6">
-        <div className="flex items-center gap-4">
-          <button
-            className="md:hidden"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            aria-label="Toggle menu"
-          >
-            <span className="sr-only">Menu</span>
-            <svg
-              className="h-6 w-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
+    <header className="absolute top-0 left-0 z-50 w-full px-4 py-5 md:px-8">
+      <nav className="mx-auto max-w-7xl rounded-2xl border border-white/10 bg-gradient-to-r from-white/10 via-white/5 to-white/10 backdrop-blur-2xl shadow-[0_8px_32px_rgba(0,0,0,0.25)]">
+        <div className="flex h-16 items-center justify-between px-5 lg:px-8">
+          {/* Logo */}
+          <Link href="/" className="flex items-center">
+            <span className="text-3xl font-extrabold tracking-tight">
+              <span className="text-sky-500">hire</span>
+              <span className="text-orange-500">Game</span>
+            </span>
+          </Link>
+
+          <div className="hidden lg:flex items-center gap-8">
+            {/* Menu Items */}
+            <ul className="flex items-center gap-8">
+              <li>
+                <Link
+                  href="/jobs"
+                  className="text-xs font-medium text-gray-300 hover:text-white transition"
+                >
+                  Browse Jobs
+                </Link>
+              </li>
+
+              <li>
+                <Link
+                  href="/companies"
+                  className="text-xs font-medium text-gray-300 hover:text-white transition"
+                >
+                  Company
+                </Link>
+              </li>
+
+              <li>
+                <Link
+                  href="/pricing"
+                  className="text-xs font-medium text-gray-300 hover:text-white transition"
+                >
+                  Pricing
+                </Link>
+              </li>
+            </ul>
+
+            {/* Separator */}
+            <div className="h-5 w-px bg-white/20" />
+
+            {/* Sign In */}
+            <Link
+              href="/signin"
+              className="text-sm font-medium text-violet-400 hover:text-violet-300 transition"
             >
-              {isMenuOpen ? (
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              ) : (
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              )}
-            </svg>
+              Sign In
+            </Link>
+
+            {/* CTA */}
+            <Link
+              href="/signup"
+              className="rounded-xl bg-gradient-to-r from-violet-600 to-indigo-500 px-5 py-2.5 text-sm font-medium text-white shadow-lg shadow-violet-500/20 transition-all hover:scale-105"
+            >
+              Get Started
+            </Link>
+          </div>
+
+          {/* Mobile Button */}
+          <button
+            onClick={() => setOpen(!open)}
+            className="flex flex-col gap-1.5 lg:hidden cursor-pointer"
+          >
+            <span className="h-0.5 w-6 bg-white"></span>
+            <span className="h-0.5 w-6 bg-white"></span>
+            <span className="h-0.5 w-6 bg-white"></span>
           </button>
-          <div>Logo</div>
         </div>
-        <ul className="hidden items-center gap-4 md:flex">
-          <li>
-            <Link href="#">Features</Link>
-          </li>
-          <li>
-            <Link href="#">Pricing</Link>
-          </li>
-        </ul>
-      </header>
-      {isMenuOpen && (
-        <div className="border-t border-separator md:hidden">
-          <ul className="flex flex-col gap-2 p-4">
-            <li>
-              <Link href="#" className="block py-2">
-                Features
+
+        {/* Mobile Menu */}
+        {open && (
+          <div className="border-t border-white/10 lg:hidden">
+            <div className="flex flex-col px-5 py-4">
+              <Link
+                href="/jobs"
+                className="py-3 text-sm text-gray-300 hover:text-white"
+              >
+                Browse Jobs
               </Link>
-            </li>
-            <li>
-              <Link href="#" className="block py-2">
+
+              <Link
+                href="/companies"
+                className="py-3 text-sm text-gray-300 hover:text-white"
+              >
+                Company
+              </Link>
+
+              <Link
+                href="/pricing"
+                className="py-3 text-sm text-gray-300 hover:text-white"
+              >
                 Pricing
               </Link>
-            </li>
-          </ul>
-        </div>
-      )}
-    </nav>
+
+              <div className="mt-4 flex flex-col gap-3">
+                <Link href="/signin" className="text-center text-violet-400">
+                  Sign In
+                </Link>
+
+                <Link
+                  href="/signup"
+                  className="rounded-xl bg-gradient-to-r from-violet-600 to-indigo-500 py-3 text-center text-white"
+                >
+                  Get Started
+                </Link>
+              </div>
+            </div>
+          </div>
+        )}
+      </nav>
+    </header>
   );
 }
-
-export default Navbar;
