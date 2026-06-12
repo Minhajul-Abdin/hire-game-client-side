@@ -3,11 +3,11 @@ import { FiBriefcase, FiCompass, FiUsers, FiStar } from "react-icons/fi";
 
 export default function StatsSection() {
   return (
-    <section className="relative w-full bg-black text-white px-5 py-40 overflow-hidden select-none">
+    <section className="relative w-full bg-black text-white px-5 pt-40 pb-10 overflow-hidden select-none">
       {/* Background Overlay Wrapper 
         Replace 'bg-[url("/path-to-your-globe.png")]' with your actual background image asset path
       */}
-      <div className="absolute inset-0 bg-[url('/images/globe.png')] bg-top bg-no-repeat bg-contain opacity-80 pointer-events-none mix-blend-screen" />
+      <div className="absolute inset-0 bg-cover bg-center opacity-90 bg-[url('/images/globe.png')] bg-no-repeat bg-contain pointer-events-none mix-blend-screen" />
 
       {/* Content Container */}
       <div className="relative z-10 max-w-[1200px] mx-auto flex flex-col items-center">
