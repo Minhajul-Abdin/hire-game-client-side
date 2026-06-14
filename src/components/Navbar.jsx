@@ -1,10 +1,18 @@
 "use client";
 
 import Link from "next/link";
+import { Button } from "@heroui/react";
 import { useState } from "react";
+import { useSession, signOut } from "@/lib/auth-client";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const { data: session, isPending } = useSession();
+  const user = session?.user;
+
+  const handleSignOut = async () => {
+    await signOut();
+  };
 
   return (
     <header className="absolute top-0 left-0 z-50 w-full px-4 py-5 md:px-8">
@@ -53,16 +61,22 @@ export default function Navbar() {
             <div className="h-5 w-px bg-white/20" />
 
             {/* Sign In */}
-            <Link
-              href="/signin"
-              className="text-sm font-medium text-violet-400 hover:text-violet-300 transition"
-            >
-              Sign In
-            </Link>
+            {user ? (
+              <>
+                Hi, {user.name} !
+                <Button onClick={handleSignOut} varient="ghost">
+                  SignOut
+                </Button>
+              </>
+            ) : (
+              <Link href="/auth/signin" className="text-center text-violet-400">
+                Sign In
+              </Link>
+            )}
 
             {/* CTA */}
             <Link
-              href="/signup"
+              href="/auth/signup"
               className="rounded-xl bg-gradient-to-r from-violet-600 to-indigo-500 px-5 py-2.5 text-sm font-medium text-white shadow-lg shadow-violet-500/20 transition-all hover:scale-105"
             >
               Get Started
@@ -106,12 +120,24 @@ export default function Navbar() {
               </Link>
 
               <div className="mt-4 flex flex-col gap-3">
-                <Link href="/signin" className="text-center text-violet-400">
-                  Sign In
-                </Link>
+                {user ? (
+                  <>
+                    Hi, {user.name} !
+                    <Button onClick={handleSignOut} varient="ghost">
+                      SignOut
+                    </Button>
+                  </>
+                ) : (
+                  <Link
+                    href="/auth/signin"
+                    className="text-center text-violet-400"
+                  >
+                    Sign In
+                  </Link>
+                )}
 
                 <Link
-                  href="/signup"
+                  href="/auth/signup"
                   className="rounded-xl bg-gradient-to-r from-violet-600 to-indigo-500 py-3 text-center text-white"
                 >
                   Get Started

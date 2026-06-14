@@ -1,5 +1,8 @@
+"use client";
 import React from "react";
 import { FiBriefcase, FiCompass, FiUsers, FiStar } from "react-icons/fi";
+import HeroSection from "@/components/banner";
+import { motion } from "motion/react";
 
 export default function StatsSection() {
   return (
@@ -9,6 +12,7 @@ export default function StatsSection() {
       */}
       <div className="absolute inset-0 bg-cover bg-center opacity-90 bg-[url('/images/globe.png')] bg-no-repeat bg-contain pointer-events-none mix-blend-screen" />
 
+      <HeroSection />
       {/* Content Container */}
       <div className="relative z-10 max-w-[1200px] mx-auto flex flex-col items-center">
         {/* Main Heading Headline */}
@@ -20,7 +24,11 @@ export default function StatsSection() {
         </h2>
 
         {/* Stats Cards Grid Grid Layout */}
-        <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <motion.div
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5"
+        >
           {/* Card 1: Active Jobs */}
           <div className="flex flex-col justify-between bg-[#0d0d0d] border border-[#1a1a1a] rounded-2xl p-6 h-[180px] hover:border-gray-800 transition-colors duration-300">
             <div className="text-gray-400 text-xl">
@@ -80,7 +88,7 @@ export default function StatsSection() {
               </div>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
