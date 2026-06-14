@@ -1,6 +1,9 @@
 "use client";
 
 import React, { useState } from "react";
+import { redirect } from "next/navigation";
+import { createJob } from "@/lib/actions/jobs";
+import { Toast } from "@heroui/react";
 import {
   Form,
   Fieldset,
@@ -16,8 +19,6 @@ import {
   toast,
 } from "@heroui/react";
 import { Briefcase, Globe } from "@gravity-ui/icons";
-
-import { redirect } from "next/navigation";
 
 export default function PostJobPage() {
   // Mock configuration for recruiter's authenticated state
@@ -70,7 +71,13 @@ export default function PostJobPage() {
       isPubliclyVisible: true,
     };
 
-    console.log(payload);
+    const res = await createJob(payload);
+    if (res.insertedId) {
+      toast.success("New Job Added Success");
+      e.target.reset();
+      setIsRemote(false);
+      redirect("/dashboard/recruiter");
+    }
   };
 
   // Dark styles styled to match your image_988c20.png reference layout
